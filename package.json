@@ -1,0 +1,24 @@
+{
+  "name": "api_tests",
+  "version": "1.0.0",
+  "description": "tvShows",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emsmcode/tempTVshows.git"
+  },
+  "author": "emsm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emsmcode/tempTVshows/issues"
+  },
+  "homepage": "https://github.com/emsmcode/tempTVshows#readme",
+  "devDependencies": {
+    "cypress": "^12.8.1",
+    "eslint": "^8.36.0",
+    "typescript": "^5.0.2"
+  }
+}
