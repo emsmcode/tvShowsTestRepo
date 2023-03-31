@@ -3,7 +3,7 @@
 describe('TV Shows Exercise', () => {
 
     it('1. All HBO Drama Shows that premiered AFTER 2012 and BEFORE 2016', () => {
-        let newLizArray: any[] = new Array
+        let newShowList: any[] = new Array
 
         cy.request({
             method: 'GET',
@@ -19,24 +19,23 @@ describe('TV Shows Exercise', () => {
         }).then((show) => {
             
             for(let i=0; i< show.length; i++) {
-                if (show[i].name != null &&
-                    show[i].premiered != null &&
+                if (show[i]!.name &&
+                    show[i]!.premiered &&
                     show[i].premiered > '2012-12-31' &&
                     show[i].premiered < '2016-01-01' &&
-                    show[i].genres != null &&
-                    show[i].network != null &&
-                    show[i].network.name != null &&
+                    show[i]!.genres &&
+                    show[i].genres.includes('Drama') &&
+                    show[i]!.network &&
+                    show[i]!.network.name &&
                     show[i].network.name === 'HBO') {
                     
-                    newLizArray.push(show[i])
+                        newShowList.push(show[i])
                 }
             }
         }).then(() => {
-            for(let i=0; i< newLizArray.length; i++) {
-                if((newLizArray[i].genres).includes('Drama')) {
-                    cy.log(newLizArray[i].name)
-                }
-            }
+            for(let i=0; i< newShowList.length; i++) {
+                cy.log(newShowList[i].name)
+           }
         })
     })
 })
