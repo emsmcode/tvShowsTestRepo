@@ -1,5 +1,8 @@
 /// <reference types="Cypress" />
 
+import deepEqualInAnyOrder from 'deep-equal-in-any-order'
+chai.use(deepEqualInAnyOrder)
+
 describe('TV Shows Exercise', () => {
 
     const expectedTitles: string[] = ['The Leftovers', 'True Detective', 'Looking']
