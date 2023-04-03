@@ -17,9 +17,7 @@
   },
   "homepage": "https://github.com/emsmcode/tempTVshows#readme",
   "devDependencies": {
-    "@types/deep-equal-in-any-order": "^1.0.1",
     "cypress": "^12.8.1",
-    "deep-equal-in-any-order": "^2.0.6",
     "eslint": "^8.36.0",
     "typescript": "^5.0.2"
   }

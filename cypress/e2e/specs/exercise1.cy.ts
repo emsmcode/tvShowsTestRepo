@@ -1,11 +1,9 @@
 /// <reference types="Cypress" />
 
-import deepEqualInAnyOrder from 'deep-equal-in-any-order'
-chai.use(deepEqualInAnyOrder)
-
 describe('TV Shows Exercise', () => {
 
-    let expectedTitles = [{title: 'The  Leftovers'}, {title: 'True Detecive'}, {title: 'Looking'}]
+    const expectedTitles: string[] = ['The Leftovers', 'True Detective', 'Looking']
+    let newShowTitles: string[] = []
 
     it('1. All HBO Drama Shows that premiered AFTER 2012 and BEFORE 2016', () => {
 
@@ -21,7 +19,7 @@ describe('TV Shows Exercise', () => {
             return shows
 
         }).then((shows) => {
-            const newShowListIDs: number[] = new Array
+            const newShowListIDs: number[] = []
             for(let i=0; i< shows.length; i++) {
                 if(
                     shows[i]!.name &&
@@ -37,21 +35,38 @@ describe('TV Shows Exercise', () => {
                         newShowListIDs.push(shows[i].id)
                 }
             }
+            expect(newShowListIDs.length).to.eq(expectedTitles.length)
             return newShowListIDs
 
         }).then((newShowListIDs) => {
-            expect(newShowListIDs.length).to.eq(3)
             for(let i=0; i<newShowListIDs.length; i++) {
                 cy.request({
                     method: 'GET',
                     url: 'shows/' + (newShowListIDs[i])
+
                 }).then((resp) => {
                     expect(resp.status).to.eq(200)
-                    let theTitle = (resp.body).name
-                    cy.log(theTitle)
-                    expect(expectedTitles.includes(theTitle))
+
+                }).then((resp) => {
+                    newShowTitles.push((resp.body).name)
                 })
             }
+        }).then(() => {
+            expect(newShowTitles.length).to.eq(expectedTitles.length)
+
+        }).then(() => {
+            expectedTitles.sort()
+            newShowTitles.sort()
+            
+        }).then(() => {
+            let valuesAreEqual: boolean = true
+            for(let i=0; i<expectedTitles.length; i++) {
+                if(expectedTitles[i] !== newShowTitles[i]) {
+                    
+                    valuesAreEqual = false
+                }
+            }
+            expect(valuesAreEqual).to.be.true
         })
     })
 })
